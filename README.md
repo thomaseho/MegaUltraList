@@ -1,5 +1,5 @@
 # MegaUltraList
 
-<Fremtidig avsnitt om appen>
+Fremtidig avsnitt om appen:
   
-  APK Download link: 
+APK Download link: 
