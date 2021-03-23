@@ -23,7 +23,29 @@ class MainActivity : AppCompatActivity() {
             Task("Harry Potter"), Task("ikke GoT"))),
 
             toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling"),
-            Task("Lære å fly"), Task("Spise en vegetarburger som ikke smaker drit"))))
+            Task("Lære å fly"), Task("Spise en vegetarburger som ikke smaker drit"))),
+
+            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød"),
+                    Task("Egg"), Task("Melk"))),
+
+            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5"),
+                    Task("3dPrinter"), Task("Sokker"))),
+
+            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR"),
+                    Task("Harry Potter"), Task("ikke GoT"))),
+            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling"),
+                    Task("Lære å fly"), Task("Spise en vegetarburger som ikke smaker drit"))),
+            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød"),
+                    Task("Egg"), Task("Melk"))),
+
+            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5"),
+                    Task("3dPrinter"), Task("Sokker"))),
+
+            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR"),
+                    Task("Harry Potter"), Task("ikke GoT"))),
+
+            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling"),
+                    Task("Lære å fly"), Task("Spise en vegetarburger som ikke smaker drit"))))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
