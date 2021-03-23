@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:layout_margin="10dp"
+        tools:context=".MainActivity">
+
+        <CheckBox
+            android:id="@+id/taskCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_finished"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:id="@+id/taskText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/purple_200"
+            tools:text="Task"
+            android:layout_gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/deleteTaskButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            android:layout_gravity="end"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
