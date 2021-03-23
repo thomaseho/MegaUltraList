@@ -13,39 +13,39 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private var listCollection:MutableList<toDoList> = mutableListOf(
-            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød"),
-            Task("Egg"), Task("Melk"))),
+            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", false),
+            Task("Egg", false), Task("Melk", false))),
 
-            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5"),
-            Task("3dPrinter"), Task("Sokker"))),
+            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5", false),
+            Task("3dPrinter", false), Task("Sokker", false))),
 
-            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR"),
-            Task("Harry Potter"), Task("ikke GoT"))),
+            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", false),
+            Task("Harry Potter", false), Task("ikke GoT", false))),
 
-            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling"),
-            Task("Lære å fly"), Task("Spise en vegetarburger som ikke smaker drit"))),
+            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling", false),
+            Task("Lære å fly", false), Task("Spise en vegetarburger som ikke smaker drit", false))),
 
-            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød"),
-                    Task("Egg"), Task("Melk"))),
+            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", false),
+                    Task("Egg", false), Task("Melk", false))),
 
-            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5"),
-                    Task("3dPrinter"), Task("Sokker"))),
+            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5", false),
+                    Task("3dPrinter", false), Task("Sokker", false))),
 
-            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR"),
-                    Task("Harry Potter"), Task("ikke GoT"))),
-            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling"),
-                    Task("Lære å fly"), Task("Spise en vegetarburger som ikke smaker drit"))),
-            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød"),
-                    Task("Egg"), Task("Melk"))),
+            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", false),
+                    Task("Harry Potter", false), Task("ikke GoT", false))),
+            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling", false),
+                    Task("Lære å fly", false), Task("Spise en vegetarburger som ikke smaker drit", false))),
+            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", false),
+                    Task("Egg", false), Task("Melk", false))),
 
-            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5"),
-                    Task("3dPrinter"), Task("Sokker"))),
+            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5", false),
+                    Task("3dPrinter", false), Task("Sokker", false))),
 
-            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR"),
-                    Task("Harry Potter"), Task("ikke GoT"))),
+            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", false),
+                    Task("Harry Potter", false), Task("ikke GoT", false))),
 
-            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling"),
-                    Task("Lære å fly"), Task("Spise en vegetarburger som ikke smaker drit"))))
+            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling", false),
+                    Task("Lære å fly", false), Task("Spise en vegetarburger som ikke smaker drit", false))))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
