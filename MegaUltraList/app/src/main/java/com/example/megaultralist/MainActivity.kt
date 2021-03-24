@@ -13,6 +13,7 @@ import com.example.megaultralist.tasks.toDoListDetailsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.list_layout.view.*
 
 
 const val EXTRA_TODOLIST_INFO: String = "com.example.megaultralist.tasks.info"
@@ -33,14 +34,14 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String = "Mega Ultra List:Mainactivity"
 
     private var listCollection:MutableList<toDoList> = mutableListOf(
-            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", false),
-            Task("Egg", false), Task("Melk", false))),
+            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", true),
+            Task("Egg", false), Task("Melk", true))),
 
             toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5", false),
-            Task("3dPrinter", false), Task("Sokker", false))),
+            Task("3dPrinter", true), Task("Sokker", false))),
 
-            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", false),
-            Task("Harry Potter", false), Task("ikke GoT", false))),
+            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", true),
+            Task("Harry Potter", true), Task("ikke GoT", true))),
 
             toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling", false),
             Task("Lære å fly", false), Task("Spise en vegetarburger som ikke smaker drit", false))),
