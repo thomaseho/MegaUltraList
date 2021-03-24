@@ -11,6 +11,7 @@ class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView
     class ViewHolder(val binding:TaskLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(Task: Task) {
             binding.taskText.text = Task.taskName
+            binding.taskCheckBox.isChecked = Task.completed
         }
     }
 
