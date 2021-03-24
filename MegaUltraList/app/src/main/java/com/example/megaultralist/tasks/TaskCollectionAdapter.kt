@@ -1,5 +1,6 @@
 package com.example.megaultralist.tasks
 
+import android.system.Os.remove
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +11,19 @@ class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView
 
     class ViewHolder(val binding:TaskLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(Task: Task) {
+
             binding.taskText.text = Task.taskName
-            binding.taskCheckBox.isChecked = Task.completed
+            binding.deleteTaskButton.setOnClickListener {
+
+                deleteTaskButton()
+
+            }
+        }
+
+        private fun deleteTaskButton() {
+
+            // Work in progress
+
         }
     }
 
@@ -26,4 +38,5 @@ class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(TaskLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
+
 }

@@ -9,7 +9,7 @@ import com.example.megaultralist.tasks.data.toDoList
 import com.google.android.gms.tasks.Tasks
 import kotlinx.android.synthetic.main.list_layout.view.*
 
-class toDoListCollectionAdapter(private val todolists:MutableList<toDoList>, private val onToDoListClicked:(toDoList) -> Unit) : RecyclerView.Adapter<toDoListCollectionAdapter.ViewHolder>() {
+class toDoListCollectionAdapter(private var todolists:List<toDoList>, private val onToDoListClicked:(toDoList) -> Unit) : RecyclerView.Adapter<toDoListCollectionAdapter.ViewHolder>() {
 
     class ViewHolder(val binding:ListLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(toDoList: toDoList, onToDoListClicked: (toDoList) -> Unit) {
@@ -49,5 +49,9 @@ class toDoListCollectionAdapter(private val todolists:MutableList<toDoList>, pri
         return ViewHolder(ListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
+    public fun updateToDoListCollection(newToDoList: List<toDoList>){
+        todolists = newToDoList
+        notifyDataSetChanged()
+    }
 
 }

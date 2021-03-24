@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.megaultralist.databinding.ActivityMainBinding
+import com.example.megaultralist.tasks.CreateNewToDoList
+import com.example.megaultralist.tasks.ToDoListDepositoryManager
 import com.example.megaultralist.tasks.data.Task
 import com.example.megaultralist.tasks.data.toDoList
 import com.example.megaultralist.tasks.toDoListCollectionAdapter
@@ -33,41 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG:String = "Mega Ultra List:Mainactivity"
 
-    private var listCollection:MutableList<toDoList> = mutableListOf(
-            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", true),
-            Task("Egg", false), Task("Melk", true))),
-
-            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5", false),
-            Task("3dPrinter", true), Task("Sokker", false))),
-
-            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", true),
-            Task("Harry Potter", true), Task("ikke GoT", true))),
-
-            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling", false),
-            Task("Lære å fly", false), Task("Spise en vegetarburger som ikke smaker drit", false))),
-
-            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", false),
-                    Task("Egg", false), Task("Melk", false))),
-
-            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5", false),
-                    Task("3dPrinter", false), Task("Sokker", false))),
-
-            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", false),
-                    Task("Harry Potter", false), Task("ikke GoT", false))),
-            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling", false),
-                    Task("Lære å fly", false), Task("Spise en vegetarburger som ikke smaker drit", false))),
-            toDoList(listName = "Handleliste", tasks = mutableListOf(Task("Brød", false),
-                    Task("Egg", false), Task("Melk", false))),
-
-            toDoList(listName = "Julegaver", tasks = mutableListOf(Task("PS5", false),
-                    Task("3dPrinter", false), Task("Sokker", false))),
-
-            toDoList(listName = "Filmer å se", tasks = mutableListOf(Task("LOTR", false),
-                    Task("Harry Potter", false), Task("ikke GoT", false))),
-
-            toDoList(listName = "Bucket list", tasks = mutableListOf(Task("Ikke stryke i apputvikling", false),
-                    Task("Lære å fly", false), Task("Spise en vegetarburger som ikke smaker drit", false))))
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -78,7 +46,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.toDoListListing.layoutManager = LinearLayoutManager(this)
-        binding.toDoListListing.adapter = toDoListCollectionAdapter(listCollection, this::onToDoListClicked)
+        binding.toDoListListing.adapter = toDoListCollectionAdapter(emptyList<toDoList>(), this::onToDoListClicked)
+        binding.newListButton.setOnClickListener {
+
+            createNewListButton()
+
+        }
+
+        ToDoListDepositoryManager.instance.onToDoLists = {
+            (binding.toDoListListing.adapter as toDoListCollectionAdapter).updateToDoListCollection(it)
+        }
+
+        ToDoListDepositoryManager.instance.load()
 
     }
 
@@ -92,8 +71,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun addToDoList(listName: String, tasks: MutableList<Task>){
-        // Addding later
+    private fun addToDoList(listName: String){
+
+        val mutableList = mutableListOf<Task>()
+        val todolist = toDoList(listName, mutableList)
+
+        ToDoListDepositoryManager.instance.addToDoList(todolist)
+
+    }
+
+    private fun createNewListButton(){
+
+        val intent = Intent(this, CreateNewToDoList::class.java)
+
+        startActivity(intent)
+
     }
 
     private fun onToDoListClicked(toDoList: toDoList): Unit {
@@ -112,4 +104,5 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
 }
