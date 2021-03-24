@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/cardview_dark_background"
         android:layout_margin="10dp"
         tools:context=".tasks.toDoListDetailsActivity">
@@ -23,12 +23,12 @@
 
         <TextView
             android:id="@+id/taskText"
-            android:layout_width="wrap_content"
+            android:layout_width="142dp"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:layout_gravity="center"
             android:textColor="@color/purple_200"
-            tools:text="Task"
-            android:layout_gravity="center"/>
+            android:textSize="20sp"
+            tools:text="Task" />
 
         <ImageButton
             android:id="@+id/deleteTaskButton"

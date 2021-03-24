@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "280234109427",
+    "project_id": "mega-ultra-list",
+    "storage_bucket": "mega-ultra-list.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280234109427:android:17590dd53a9ef458344a86",
+        "android_client_info": {
+          "package_name": "com.example.megaultralist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280234109427-hnoqtnp4inede8u5t357k6ffaj7tkp9s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4I-oCcyN65jSnJnjRMUrFuVyWNI6L2y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280234109427-hnoqtnp4inede8u5t357k6ffaj7tkp9s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
