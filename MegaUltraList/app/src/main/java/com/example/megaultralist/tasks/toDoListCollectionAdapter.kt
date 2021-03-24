@@ -4,12 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.megaultralist.databinding.ListLayoutBinding
+import com.example.megaultralist.tasks.data.toDoList
 
-class toDoListCollectionAdapter(private val todolists:MutableList<toDoList>) : RecyclerView.Adapter<toDoListCollectionAdapter.ViewHolder>() {
+class toDoListCollectionAdapter(private val todolists:MutableList<toDoList>, private val onToDoListClicked:(toDoList) -> Unit) : RecyclerView.Adapter<toDoListCollectionAdapter.ViewHolder>() {
 
     class ViewHolder(val binding:ListLayoutBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(toDoList: toDoList) {
+        fun bind(toDoList: toDoList, onToDoListClicked: (toDoList) -> Unit) {
             binding.toDoListName.text = toDoList.listName
+
+            binding.card.setOnClickListener {
+                onToDoListClicked(toDoList)
+            }
         }
     }
 
@@ -18,7 +23,7 @@ class toDoListCollectionAdapter(private val todolists:MutableList<toDoList>) : R
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val toDoList = todolists[position]
-        holder.bind(toDoList)
+        holder.bind(toDoList, onToDoListClicked)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

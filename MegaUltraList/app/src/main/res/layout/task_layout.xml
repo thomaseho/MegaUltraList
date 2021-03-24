@@ -10,11 +10,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:clickable="true"
-        android:focusable="true"
         android:backgroundTint="@color/cardview_dark_background"
         android:layout_margin="10dp"
-        tools:context=".MainActivity">
+        tools:context=".tasks.toDoListDetailsActivity">
 
         <CheckBox
             android:id="@+id/taskCheckBox"
