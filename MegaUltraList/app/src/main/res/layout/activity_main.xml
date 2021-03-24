@@ -24,6 +24,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/toDoListListing"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="725dp">
 
