@@ -1,5 +1,6 @@
 package com.example.megaultralist.tasks
 
+import com.example.megaultralist.ToDoListHolder
 import com.example.megaultralist.tasks.data.Task
 import com.example.megaultralist.tasks.data.toDoList
 
@@ -8,6 +9,7 @@ class ToDoListDepositoryManager {
     private lateinit var listCollection:MutableList<toDoList>
 
     var onToDoLists:((List<toDoList>) -> Unit)? = null
+    var onTasks:((List<Task>) -> Unit)? = null
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
 
     fun load(){
@@ -84,7 +86,7 @@ class ToDoListDepositoryManager {
         ))
         )
 
-        onToDoLists?.invoke(listCollection)
+        updateAllLists()
     }
 
     fun addToDoList(toDoList: toDoList){
@@ -93,10 +95,20 @@ class ToDoListDepositoryManager {
         onToDoLists?.invoke(listCollection)
 
     }
+    fun updateAllLists(){
+        onToDoLists?.invoke(listCollection)
+    }
 
     fun updateToDoList(toDoList: toDoList){
 
         onTodoListUpdate?.invoke(toDoList)
+
+    }
+
+    fun removeToDoList(toDoList: toDoList){
+
+        listCollection.remove(toDoList)
+        updateAllLists()
 
     }
 
@@ -105,6 +117,7 @@ class ToDoListDepositoryManager {
         if (toDoList != null){
             toDoList.tasks.add(task)
             updateToDoList(toDoList)
+            updateAllLists()
         }
 
     }
@@ -112,9 +125,50 @@ class ToDoListDepositoryManager {
     fun updateTaskCompletion(task: Task, status: Boolean){
 
         task.completed = status
+        updateAllLists()
+        ToDoListHolder.PickedToDoList?.let { updateToDoList(it) }
 
     }
 
+    fun removeTaskFromList(toDoList: toDoList?, task: Task){
+
+        if (toDoList != null){
+
+            toDoList.tasks.remove(task)
+            updateToDoList(toDoList)
+            updateTasks(toDoList.tasks)
+
+        }
+
+    }
+
+    fun updateTasks(tasks: List<Task>) {
+        onTasks?.invoke(tasks)
+    }
+
+    fun calculateProgressBar(): Int {
+
+        val size: Float? = ToDoListHolder.PickedToDoList?.tasks?.size?.toFloat()
+        var completedTasks: Float = 0.0F
+        var progress: Int = 0
+
+        if(ToDoListHolder.PickedToDoList != null){
+
+            val tasks = ToDoListHolder.PickedToDoList!!.tasks
+
+            tasks.forEach{
+
+                if(it.completed){
+
+                    completedTasks++
+                }
+            }
+            progress = (completedTasks / size!! * 100).toInt()
+
+
+        }
+        return progress
+    }
     companion object {
 
         val instance = ToDoListDepositoryManager()

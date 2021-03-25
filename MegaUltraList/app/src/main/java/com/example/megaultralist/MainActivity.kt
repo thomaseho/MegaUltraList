@@ -71,14 +71,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun addToDoList(listName: String){
-
-        val mutableList = mutableListOf<Task>()
-        val todolist = toDoList(listName, mutableList)
-
-        ToDoListDepositoryManager.instance.addToDoList(todolist)
-
-    }
 
     private fun createNewListButton(){
 
@@ -104,5 +96,4 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
 }

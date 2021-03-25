@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.megaultralist.EXTRA_TODOLIST_INFO
 import com.example.megaultralist.ToDoListHolder
 import com.example.megaultralist.databinding.ActivityToDoListDetailsBinding
@@ -49,7 +50,13 @@ class toDoListDetailsActivity : AppCompatActivity() {
 
         }
 
-        calculateProgress(todolist.tasks)
+        binding.toDoListProgressBar.progress = ToDoListDepositoryManager.instance.calculateProgressBar()
+
+        ToDoListDepositoryManager.instance.onTasks = {
+            (binding.toDoListTasks.adapter as TaskCollectionAdapter).updateTasks(it)
+            binding.toDoListProgressBar.progress = ToDoListDepositoryManager.instance.calculateProgressBar()
+        }
+
 
     }
 
@@ -62,21 +69,4 @@ class toDoListDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun calculateProgress(tasks: List<Task>) {
-
-        val size: Float = tasks.size.toFloat()
-        var completedTasks: Float = 0.0F
-
-        tasks.forEach{
-            if (it.completed){
-
-                completedTasks++
-
-            }
-        }
-
-        val progress: Float = (completedTasks / size * 100)
-
-        binding.toDoListProgressBar.progress = progress.toInt()
-    }
 }
