@@ -1,14 +1,20 @@
 package com.example.megaultralist.tasks
 
+
 import android.system.Os.remove
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.core.app.ActivityCompat.recreate
+import androidx.core.app.ActivityCompat.startActivities
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.megaultralist.ToDoListHolder
+import com.example.megaultralist.databinding.ActivityToDoListDetailsBinding
 import com.example.megaultralist.databinding.TaskLayoutBinding
 import com.example.megaultralist.tasks.data.Task
 
-class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView.Adapter<TaskCollectionAdapter.ViewHolder>() {
+class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapter<TaskCollectionAdapter.ViewHolder>() {
 
     class ViewHolder(val binding:TaskLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(Task: Task) {
@@ -18,8 +24,7 @@ class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView
 
             binding.deleteTaskButton.setOnClickListener {
 
-                deleteTaskButton()
-
+                ToDoListDepositoryManager.instance.removeTaskFromList(ToDoListHolder.PickedToDoList, Task)
             }
 
             binding.taskCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
@@ -31,11 +36,6 @@ class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView
             }
         }
 
-        private fun deleteTaskButton() {
-
-            // Work in progress
-
-        }
     }
 
     override fun getItemCount(): Int = tasks.size
@@ -48,6 +48,11 @@ class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(TaskLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    public fun updateTasks(newTask: List<Task>){
+        tasks = newTask
+        notifyDataSetChanged()
     }
 
 }

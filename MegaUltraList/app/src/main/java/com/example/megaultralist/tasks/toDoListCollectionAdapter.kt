@@ -19,6 +19,12 @@ class toDoListCollectionAdapter(private var todolists:List<toDoList>, private va
                 onToDoListClicked(toDoList)
             }
 
+            binding.deleteListButton.setOnClickListener {
+
+                ToDoListDepositoryManager.instance.removeToDoList(toDoList)
+
+            }
+
             binding.toDoListProgressBar.progress = calculateProgress(toDoList.tasks)
         }
 
