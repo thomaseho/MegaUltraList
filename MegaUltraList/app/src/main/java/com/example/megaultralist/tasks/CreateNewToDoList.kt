@@ -1,5 +1,6 @@
 package com.example.megaultralist.tasks
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -36,8 +37,11 @@ class CreateNewToDoList : AppCompatActivity() {
             val todolist = toDoList(listName, mutableList)
 
             ToDoListDepositoryManager.instance.addToDoList(todolist)
+            ToDoListDepositoryManager.instance.updateToDoList(todolist)
 
             Toast.makeText(this, "New list created", Toast.LENGTH_SHORT).show()
+
+            finish()
 
         }else{
             Toast.makeText(this, "Please enter a name for the list :)", Toast.LENGTH_SHORT).show()

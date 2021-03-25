@@ -100,6 +100,21 @@ class ToDoListDepositoryManager {
 
     }
 
+    fun addTaskToList(toDoList: toDoList?, task: Task){
+
+        if (toDoList != null){
+            toDoList.tasks.add(task)
+            updateToDoList(toDoList)
+        }
+
+    }
+
+    fun updateTaskCompletion(task: Task, status: Boolean){
+
+        task.completed = status
+
+    }
+
     companion object {
 
         val instance = ToDoListDepositoryManager()

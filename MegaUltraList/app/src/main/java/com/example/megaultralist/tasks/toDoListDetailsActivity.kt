@@ -4,16 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.CheckBox
-import android.widget.CompoundButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.megaultralist.EXTRA_TODOLIST_INFO
 import com.example.megaultralist.ToDoListHolder
 import com.example.megaultralist.databinding.ActivityToDoListDetailsBinding
 import com.example.megaultralist.tasks.data.Task
 import com.example.megaultralist.tasks.data.toDoList
-import kotlinx.android.synthetic.main.activity_to_do_list_details.*
-import kotlinx.android.synthetic.main.task_layout.*
 
 class toDoListDetailsActivity : AppCompatActivity() {
 
@@ -22,6 +18,7 @@ class toDoListDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityToDoListDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -46,7 +43,22 @@ class toDoListDetailsActivity : AppCompatActivity() {
         binding.toDoListTasks.layoutManager = LinearLayoutManager(this)
         binding.toDoListTasks.adapter = TaskCollectionAdapter(todolist.tasks)
 
+        binding.newTaskButton.setOnClickListener{
+
+            createNewTaskButton()
+
+        }
+
         calculateProgress(todolist.tasks)
+
+    }
+
+
+    private fun createNewTaskButton() {
+
+        var intent = Intent(this, CreateNewTask::class.java)
+
+        startActivity(intent)
 
     }
 

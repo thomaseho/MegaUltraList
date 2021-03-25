@@ -2,4 +2,5 @@
     <string name="app_name">Mega Ultra List</string>
     <string name="task_finished">Task Finished</string>
     <string name="create">Create</string>
+    <string name="add_a_new_task">Add a new task</string>
 </resources>

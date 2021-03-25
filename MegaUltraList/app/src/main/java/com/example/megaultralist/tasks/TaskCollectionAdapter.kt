@@ -3,6 +3,7 @@ package com.example.megaultralist.tasks
 import android.system.Os.remove
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.megaultralist.databinding.TaskLayoutBinding
 import com.example.megaultralist.tasks.data.Task
@@ -13,9 +14,19 @@ class TaskCollectionAdapter (private val tasks:MutableList<Task>) : RecyclerView
         fun bind(Task: Task) {
 
             binding.taskText.text = Task.taskName
+            binding.taskCheckBox.isChecked = Task.completed
+
             binding.deleteTaskButton.setOnClickListener {
 
                 deleteTaskButton()
+
+            }
+
+            binding.taskCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+
+                val status = binding.taskCheckBox.isChecked
+
+                ToDoListDepositoryManager.instance.updateTaskCompletion(Task, status)
 
             }
         }
