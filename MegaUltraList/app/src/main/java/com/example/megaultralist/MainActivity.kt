@@ -57,6 +57,10 @@ class MainActivity : AppCompatActivity() {
             (binding.toDoListListing.adapter as toDoListCollectionAdapter).updateToDoListCollection(it)
         }
 
+        ToDoListDepositoryManager.instance.onChanges = {
+            ToDoListDepositoryManager.instance.upload(it)
+        }
+
         ToDoListDepositoryManager.instance.load()
 
     }

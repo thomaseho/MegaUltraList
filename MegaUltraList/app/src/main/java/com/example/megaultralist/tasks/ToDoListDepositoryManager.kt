@@ -1,6 +1,10 @@
 package com.example.megaultralist.tasks
 
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import com.example.megaultralist.MainActivity
 import com.example.megaultralist.ToDoListHolder
@@ -8,6 +12,7 @@ import com.example.megaultralist.databinding.ActivityMainBinding
 import com.example.megaultralist.tasks.data.Task
 import com.example.megaultralist.tasks.data.toDoList
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.io.FileOutputStream
@@ -21,8 +26,7 @@ class ToDoListDepositoryManager {
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
     var onChanges:((file: Uri) -> Unit)? = null
 
-    val storage = Firebase.storage
-    val storageRef = storage.reference
+    val TAG:String = "MegaUltraList:ToDoListDepositoryManager"
 
     fun load(){
         listCollection = mutableListOf(
@@ -134,6 +138,7 @@ class ToDoListDepositoryManager {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     fun updateTaskCompletion(task: Task, status: Boolean){
 
         task.completed = status
@@ -146,9 +151,8 @@ class ToDoListDepositoryManager {
 
         if (toDoList != null){
             toDoList.tasks.remove(task)
-            updateAllLists()
             updateToDoListTasks(toDoList.tasks)
-            saveData()
+            updateAllLists()
         }
 
     }
@@ -181,27 +185,50 @@ class ToDoListDepositoryManager {
         return progress
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     fun saveData(){
 
-        updateAllLists()
-        val fileName = "userlists/userLists.json"
-        val stream = File(fileName)
+        val path = System.getProperty("user.dir")
+        val fileName = "userLists.json"
 
-        var content: String = "{\n"
-        listCollection.forEach { toDoList ->
-            content = content + "    \"todolist\":   {\n" + "\"listname\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":  [\n"
-            toDoList.tasks.forEach{
-                content = content + "    {\"taskName\": \"${it.taskName}\"," + " \"completed\": ${it.completed}},\n"
+        print(path)
+
+        if (path != null) {
+
+            val file = File(path, fileName)
+
+            var content: String = "{\n"
+            listCollection.forEach { toDoList ->
+                content = content + "    \"todolist\":   {\n" + "\"listname\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":  [\n"
+                toDoList.tasks.forEach {
+                    content = content + "    {\"taskName\": \"${it.taskName}\"," + " \"completed\": ${it.completed}},\n"
+                }
+                content = content + "    ]\n" + "    },\n"
             }
-            content = content + "    ]\n" + "    },\n"
+
+            content = content + "}"
+
+            FileOutputStream(file, true).bufferedWriter().use { writer ->
+                writer.write(content)
+            }
+
+            this.onChanges?.invoke(file.toUri())
         }
-        content = content + "}"
 
-        //file.bufferedWriter().use { writer ->
-        // writer.write(content)
-        //}
+    }
 
-        //this.onChanges?.invoke(file.toUri())
+    fun upload(file: Uri){
+
+        Log.d(TAG, "Upload file $file")
+
+        val ref = FirebaseStorage.getInstance().reference.child("userlists/${file.lastPathSegment}")
+        var uploadTask = ref.putFile(file)
+
+        uploadTask.addOnSuccessListener {
+            Log.d(TAG, "Saved changes ${it.toString()}")
+        }.addOnFailureListener{
+            Log.e(TAG, "Error saving changes to Firebase", it)
+        }
 
     }
 
@@ -210,5 +237,4 @@ class ToDoListDepositoryManager {
         val instance = ToDoListDepositoryManager()
 
     }
-
 }

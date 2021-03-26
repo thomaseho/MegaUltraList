@@ -1,10 +1,12 @@
 package com.example.megaultralist.tasks
 
 
+import android.os.Build
 import android.system.Os.remove
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat.recreate
 import androidx.core.app.ActivityCompat.startActivities
 import androidx.core.content.ContextCompat
@@ -17,6 +19,7 @@ import com.example.megaultralist.tasks.data.Task
 class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapter<TaskCollectionAdapter.ViewHolder>() {
 
     class ViewHolder(val binding:TaskLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.R)
         fun bind(Task: Task) {
 
             binding.taskText.text = Task.taskName
