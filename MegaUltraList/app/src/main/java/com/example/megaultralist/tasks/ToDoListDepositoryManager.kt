@@ -1,8 +1,16 @@
 package com.example.megaultralist.tasks
 
+import android.net.Uri
+import androidx.core.net.toUri
+import com.example.megaultralist.MainActivity
 import com.example.megaultralist.ToDoListHolder
+import com.example.megaultralist.databinding.ActivityMainBinding
 import com.example.megaultralist.tasks.data.Task
 import com.example.megaultralist.tasks.data.toDoList
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
+import java.io.FileOutputStream
 
 class ToDoListDepositoryManager {
 
@@ -11,6 +19,10 @@ class ToDoListDepositoryManager {
     var onToDoLists:((List<toDoList>) -> Unit)? = null
     var onTasks:((List<Task>) -> Unit)? = null
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
+    var onChanges:((file: Uri) -> Unit)? = null
+
+    val storage = Firebase.storage
+    val storageRef = storage.reference
 
     fun load(){
         listCollection = mutableListOf(
@@ -136,7 +148,7 @@ class ToDoListDepositoryManager {
             toDoList.tasks.remove(task)
             updateAllLists()
             updateToDoListTasks(toDoList.tasks)
-
+            saveData()
         }
 
     }
@@ -168,6 +180,31 @@ class ToDoListDepositoryManager {
         }
         return progress
     }
+
+    fun saveData(){
+
+        updateAllLists()
+        val fileName = "userlists/userLists.json"
+        val stream = File(fileName)
+
+        var content: String = "{\n"
+        listCollection.forEach { toDoList ->
+            content = content + "    \"todolist\":   {\n" + "\"listname\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":  [\n"
+            toDoList.tasks.forEach{
+                content = content + "    {\"taskName\": \"${it.taskName}\"," + " \"completed\": ${it.completed}},\n"
+            }
+            content = content + "    ]\n" + "    },\n"
+        }
+        content = content + "}"
+
+        //file.bufferedWriter().use { writer ->
+        // writer.write(content)
+        //}
+
+        //this.onChanges?.invoke(file.toUri())
+
+    }
+
     companion object {
 
         val instance = ToDoListDepositoryManager()
