@@ -56,8 +56,6 @@ class toDoListDetailsActivity : AppCompatActivity() {
             (binding.toDoListTasks.adapter as TaskCollectionAdapter).updateTasks(it)
             binding.toDoListProgressBar.progress = ToDoListDepositoryManager.instance.calculateProgressBar()
         }
-
-
     }
 
 
