@@ -116,8 +116,8 @@ class ToDoListDepositoryManager {
 
         if (toDoList != null){
             toDoList.tasks.add(task)
-            updateToDoList(toDoList)
             updateAllLists()
+            updateToDoListTasks(toDoList.tasks)
         }
 
     }
@@ -126,23 +126,22 @@ class ToDoListDepositoryManager {
 
         task.completed = status
         updateAllLists()
-        ToDoListHolder.PickedToDoList?.let { updateToDoList(it) }
+        ToDoListHolder.PickedToDoList?.let { updateToDoListTasks(it.tasks) }
 
     }
 
     fun removeTaskFromList(toDoList: toDoList?, task: Task){
 
         if (toDoList != null){
-
             toDoList.tasks.remove(task)
-            updateToDoList(toDoList)
-            updateTasks(toDoList.tasks)
+            updateAllLists()
+            updateToDoListTasks(toDoList.tasks)
 
         }
 
     }
 
-    fun updateTasks(tasks: List<Task>) {
+    fun updateToDoListTasks(tasks: List<Task>) {
         onTasks?.invoke(tasks)
     }
 

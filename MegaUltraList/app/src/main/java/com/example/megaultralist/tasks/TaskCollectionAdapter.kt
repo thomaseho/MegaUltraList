@@ -24,7 +24,9 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
             binding.deleteTaskButton.setOnClickListener {
 
+                binding.taskCheckBox.isChecked = false
                 ToDoListDepositoryManager.instance.removeTaskFromList(ToDoListHolder.PickedToDoList, Task)
+
             }
 
             binding.taskCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
@@ -53,6 +55,7 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
     public fun updateTasks(newTask: List<Task>){
         tasks = newTask
         notifyDataSetChanged()
+
     }
 
 }
