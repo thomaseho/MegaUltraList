@@ -27,7 +27,6 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
             binding.deleteTaskButton.setOnClickListener {
 
-                binding.taskCheckBox.isChecked = false
                 ToDoListDepositoryManager.instance.removeTaskFromList(ToDoListHolder.PickedToDoList, Task)
 
             }

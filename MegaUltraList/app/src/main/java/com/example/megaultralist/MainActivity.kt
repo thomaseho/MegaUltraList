@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             saveLists()
         }
 
-        ToDoListDepositoryManager.instance.load()
+        ToDoListDepositoryManager.instance.loadFirebase()
 
     }
 

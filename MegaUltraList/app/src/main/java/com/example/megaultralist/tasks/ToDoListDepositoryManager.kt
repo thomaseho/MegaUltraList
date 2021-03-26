@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import com.example.megaultralist.MainActivity
@@ -14,6 +15,8 @@ import com.example.megaultralist.tasks.data.toDoList
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileOutputStream
 import java.io.PrintWriter
@@ -28,8 +31,22 @@ class ToDoListDepositoryManager {
     var onTasks:((List<Task>) -> Unit)? = null
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
     var onChanges:((List<toDoList>) -> Unit)? = null
+    val gson = Gson()
 
     val TAG:String = "MegaUltraList:ToDoListDepositoryManager"
+
+    fun loadFirebase(){
+
+        var userListRef = Firebase.storage.reference.child("userlists/userLists.json")
+        val ONE_MEGABYTE: Long = 1024 * 1024
+        userListRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+            load()
+            updateAllLists()
+        }.addOnFailureListener{
+            load()
+        }
+
+    }
 
     fun load(){
         listCollection = mutableListOf(
@@ -112,6 +129,7 @@ class ToDoListDepositoryManager {
 
         listCollection.add(toDoList)
         onToDoLists?.invoke(listCollection)
+        updateChanges()
 
     }
     fun updateAllLists(){
@@ -128,6 +146,7 @@ class ToDoListDepositoryManager {
 
         listCollection.remove(toDoList)
         updateAllLists()
+        updateChanges()
 
     }
 
@@ -194,7 +213,7 @@ class ToDoListDepositoryManager {
     fun saveData(filePath: File?){
         updateAllLists()
         val path = filePath
-        val fileName = "userListLog.json"
+        val fileName = "userLists.json"
         val file = File(path, fileName)
 
         if(file.exists() && file.isFile){
@@ -203,7 +222,7 @@ class ToDoListDepositoryManager {
         file.createNewFile()
 
         if (path != null){
-            
+
             var content: String = "{\n"
             listCollection.forEach { toDoList ->
 
