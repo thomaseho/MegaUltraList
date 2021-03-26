@@ -16,6 +16,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.io.FileOutputStream
+import java.time.LocalDateTime
+import kotlin.random.Random
 
 class ToDoListDepositoryManager {
 
@@ -24,14 +26,14 @@ class ToDoListDepositoryManager {
     var onToDoLists:((List<toDoList>) -> Unit)? = null
     var onTasks:((List<Task>) -> Unit)? = null
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
-    var onChanges:((file: Uri) -> Unit)? = null
+    var onChanges:((List<toDoList>) -> Unit)? = null
 
     val TAG:String = "MegaUltraList:ToDoListDepositoryManager"
 
     fun load(){
         listCollection = mutableListOf(
 
-         toDoList(listName = "Handleliste", tasks = mutableListOf(
+         /*ÆtoDoList(listName = "Handleliste", tasks = mutableListOf(
             Task("Brød", true),
             Task("Egg", false),
             Task("Melk", true)
@@ -99,7 +101,7 @@ class ToDoListDepositoryManager {
             Task("Ikke stryke i apputvikling", false),
             Task("Lære å fly", false),
             Task("Spise en vegetarburger som ikke smaker drit", false)
-        ))
+        ))*/
         )
 
         updateAllLists()
@@ -134,16 +136,17 @@ class ToDoListDepositoryManager {
             toDoList.tasks.add(task)
             updateAllLists()
             updateToDoListTasks(toDoList.tasks)
+            updateChanges()
         }
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
     fun updateTaskCompletion(task: Task, status: Boolean){
 
         task.completed = status
         updateAllLists()
         ToDoListHolder.PickedToDoList?.let { updateToDoListTasks(it.tasks) }
+        updateChanges()
 
     }
 
@@ -153,6 +156,7 @@ class ToDoListDepositoryManager {
             toDoList.tasks.remove(task)
             updateToDoListTasks(toDoList.tasks)
             updateAllLists()
+            updateChanges()
         }
 
     }
@@ -185,34 +189,35 @@ class ToDoListDepositoryManager {
         return progress
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
-    fun saveData(){
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun saveData(filePath: File?){
+        updateAllLists()
+        val path = filePath
+        val fileName = "userListLog.json"
+        val file = File(path, fileName)
 
-        val path = System.getProperty("user.dir")
-        val fileName = "userLists.json"
-
-        print(path)
-
-        if (path != null) {
-
-            val file = File(path, fileName)
-
-            var content: String = "{\n"
+        if (path != null){
+            val time = LocalDateTime.now()
+            var content: String = "---------------------${time}-----------------\n" +
+                    "{\n"
             listCollection.forEach { toDoList ->
+
                 content = content + "    \"todolist\":   {\n" + "\"listname\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":  [\n"
+
                 toDoList.tasks.forEach {
+
                     content = content + "    {\"taskName\": \"${it.taskName}\"," + " \"completed\": ${it.completed}},\n"
+
                 }
-                content = content + "    ]\n" + "    },\n"
+                content = "$content    ]\n    },\n"
             }
 
-            content = content + "}"
+            content = "$content}"
 
             FileOutputStream(file, true).bufferedWriter().use { writer ->
                 writer.write(content)
             }
-
-            this.onChanges?.invoke(file.toUri())
+            upload(file.toUri())
         }
 
     }
@@ -222,7 +227,7 @@ class ToDoListDepositoryManager {
         Log.d(TAG, "Upload file $file")
 
         val ref = FirebaseStorage.getInstance().reference.child("userlists/${file.lastPathSegment}")
-        var uploadTask = ref.putFile(file)
+        val uploadTask = ref.putFile(file)
 
         uploadTask.addOnSuccessListener {
             Log.d(TAG, "Saved changes ${it.toString()}")
@@ -230,6 +235,10 @@ class ToDoListDepositoryManager {
             Log.e(TAG, "Error saving changes to Firebase", it)
         }
 
+    }
+
+    fun updateChanges(){
+        onChanges?.invoke(listCollection)
     }
 
     companion object {

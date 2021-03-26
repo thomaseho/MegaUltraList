@@ -45,6 +45,7 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
     override fun getItemCount(): Int = tasks.size
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val task = tasks[position]
