@@ -16,6 +16,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.io.FileOutputStream
+import java.io.PrintWriter
 import java.time.LocalDateTime
 import kotlin.random.Random
 
@@ -196,10 +197,14 @@ class ToDoListDepositoryManager {
         val fileName = "userListLog.json"
         val file = File(path, fileName)
 
+        if(file.exists() && file.isFile){
+            file.delete()
+        }
+        file.createNewFile()
+
         if (path != null){
-            val time = LocalDateTime.now()
-            var content: String = "---------------------${time}-----------------\n" +
-                    "{\n"
+            
+            var content: String = "{\n"
             listCollection.forEach { toDoList ->
 
                 content = content + "    \"todolist\":   {\n" + "\"listname\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":  [\n"
