@@ -51,75 +51,23 @@ class ToDoListDepositoryManager {
     fun load(){
         listCollection = mutableListOf(
 
-         /*ÆtoDoList(listName = "Handleliste", tasks = mutableListOf(
-            Task("Brød", true),
-            Task("Egg", false),
-            Task("Melk", true)
+         toDoList(listName = "Shoppinglist", tasks = mutableListOf(
+            Task("Bread", false),
+            Task("Eggs", false),
+            Task("Milk", false)
         )),
 
-        toDoList(listName = "Julegaver", tasks = mutableListOf(
-            Task("PS5", false),
-            Task("3dPrinter", true),
-            Task("Sokker", false)
+        toDoList(listName = "Chores", tasks = mutableListOf(
+            Task("Make dinner", false),
+            Task("Take out the trash", false),
+            Task("Clean the toilet", false)
         )),
 
-        toDoList(listName = "Filmer å se", tasks = mutableListOf(
-            Task("LOTR", true),
-            Task("Harry Potter", true),
-            Task("ikke GoT", true)
-        )),
-
-        toDoList(listName = "Bucket list", tasks = mutableListOf(
-            Task("Ikke stryke i apputvikling", false),
-            Task("Lære å fly", false),
-            Task("Spise en vegetarburger som ikke smaker drit", false)
-        )),
-
-        toDoList(listName = "Handleliste", tasks = mutableListOf(
-            Task("Brød", false),
-            Task("Egg", false),
-            Task("Melk", false)
-        )),
-
-        toDoList(listName = "Julegaver", tasks = mutableListOf(
-            Task("PS5", false),
-            Task("3dPrinter", false),
-            Task("Sokker", false)
-        )),
-
-        toDoList(listName = "Filmer å se", tasks = mutableListOf(
+        toDoList(listName = "Watchlist", tasks = mutableListOf(
             Task("LOTR", false),
             Task("Harry Potter", false),
-            Task("ikke GoT", false)
-        )),
-        toDoList(listName = "Bucket list", tasks = mutableListOf(
-            Task("Ikke stryke i apputvikling", false),
-            Task("Lære å fly", false),
-            Task("Spise en vegetarburger som ikke smaker drit", false)
-        )),
-        toDoList(listName = "Handleliste", tasks = mutableListOf(
-            Task("Brød", false),
-            Task("Egg", false),
-            Task("Melk", false)
-        )),
-
-        toDoList(listName = "Julegaver", tasks = mutableListOf(
-            Task("PS5", false),
-            Task("3dPrinter", false),
-            Task("Sokker", false)
-        )),
-
-        toDoList(listName = "Filmer å se", tasks = mutableListOf(
-            Task("LOTR", false),
-            Task("Harry Potter", false),
-            Task("ikke GoT", false)
-        )),
-
-        toDoList(listName = "Bucket list", tasks = mutableListOf(
-            Task("Ikke stryke i apputvikling", false),
-            Task("Lære å fly", false),
-            Task("Spise en vegetarburger som ikke smaker drit", false)
-        ))*/
+            Task("The world burn", false)
+        ))
         )
 
         updateAllLists()
