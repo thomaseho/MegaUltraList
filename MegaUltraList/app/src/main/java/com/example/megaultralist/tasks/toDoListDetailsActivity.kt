@@ -33,7 +33,7 @@ class toDoListDetailsActivity : AppCompatActivity() {
         } else {
 
             setResult(RESULT_CANCELED, Intent(EXTRA_TODOLIST_INFO).apply {
-                // Something to be sent back to main
+
             })
 
             finish()

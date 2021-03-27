@@ -1,10 +1,12 @@
 package com.example.megaultralist
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.megaultralist.databinding.ActivityMainBinding
 import com.example.megaultralist.tasks.CreateNewToDoList
@@ -17,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.list_layout.view.*
+import java.io.File
 
 
 const val EXTRA_TODOLIST_INFO: String = "com.example.megaultralist.tasks.info"
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG:String = "Mega Ultra List:Mainactivity"
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -57,7 +61,11 @@ class MainActivity : AppCompatActivity() {
             (binding.toDoListListing.adapter as toDoListCollectionAdapter).updateToDoListCollection(it)
         }
 
-        ToDoListDepositoryManager.instance.load()
+        ToDoListDepositoryManager.instance.onChanges = {
+            saveLists()
+        }
+
+        ToDoListDepositoryManager.instance.loadFirebase()
 
     }
 
@@ -95,5 +103,11 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_TODOLIST_DETAILS){
 
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun saveLists(){
+        val path = this.getExternalFilesDir(null)
+        ToDoListDepositoryManager.instance.saveData(path)
     }
 }
