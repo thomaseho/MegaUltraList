@@ -35,6 +35,7 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
                     if (Task.completed) {
                         Task.completed = false
+                        binding.taskCheckBox.isChecked = false
                     }
                 }
 
@@ -52,9 +53,12 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
             }
 
-            binding.taskCheckBox.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
+            binding.taskCheckBox.setOnClickListener {
 
-                ToDoListDepositoryManager.instance.updateTaskCompletion(Task, b)
+                val status = !Task.completed
+                binding.taskCheckBox.isChecked = status
+
+                ToDoListDepositoryManager.instance.updateTaskCompletion(Task, status)
 
             }
         }
