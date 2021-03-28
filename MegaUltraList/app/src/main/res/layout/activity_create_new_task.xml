@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".tasks.CreateNewToDoList">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="178dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="93dp"
+        android:text="@string/enter_a_name_for_your_task"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/newTaskName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/newTaskName"
         android:layout_width="wrap_content"
@@ -15,19 +30,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="center"
-        tools:text="New List Name" />
+        tools:text="New Task Name" />
 
     <Button
         android:id="@+id/createTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
         android:layout_marginTop="122dp"
-        android:layout_marginEnd="162dp"
         android:layout_marginBottom="218dp"
         android:text="@string/create"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newListName" />
+        app:layout_constraintTop_toBottomOf="@+id/newTaskName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

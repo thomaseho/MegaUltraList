@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Mega Ultra List</string>
-    <string name="task_finished">Task Finished</string>
+    <string name="task_finished">Completed</string>
     <string name="create">Create</string>
     <string name="add_a_new_task">Add a new task</string>
+    <string name="enter_a_name_for_your_list">Enter a name for your list</string>
+    <string name="enter_a_name_for_your_task">Enter a name for your task</string>
 </resources>
