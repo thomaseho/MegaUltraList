@@ -22,8 +22,6 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
         @RequiresApi(Build.VERSION_CODES.R)
         fun bind(Task: Task) {
 
-            val thisList = ToDoListHolder.PickedToDoList
-
             binding.taskText.text = Task.taskName
             binding.taskCheckBox.isChecked = Task.completed
 

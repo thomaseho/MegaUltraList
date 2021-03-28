@@ -40,7 +40,7 @@ class ToDoListDepositoryManager {
 
 
 
-            val json = """
+            /*val json = """
                 [
                     {
                     "listName": "Funker dette?",
@@ -55,7 +55,7 @@ class ToDoListDepositoryManager {
                     {"taskName": "eller?", "completed": false}
                     ]}
                 ]
-            """
+            """*/
 
             val userLists = String(it)
 
