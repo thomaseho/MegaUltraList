@@ -5,8 +5,8 @@ Man kan følge med på progresjonen på listen ved å se på progresjonsbaren so
 Hvis man vil legge til nye lister eller oppgaver har man en knapp for det lett tilgjengelig nede i høyre hjørne.
 Man kan enkelt slette en liste eller en oppgave ved å trykke på den lille søppelbøtten på liste elementet.
 
-Appen lagrer listene på Firebase når de blir endret, når du åpner appen laster den ned listen du hadde fra før av. Jeg har ikke fått til å bruke den nedlastede
-listen enda så det er work in progress.
+Appen lagrer listene på Firebase når de blir endret, når du åpner appen laster den ned listene du hadde fra før av som en Json fil
+og bruker datene i filen.
 
   
 APK Download link: 
