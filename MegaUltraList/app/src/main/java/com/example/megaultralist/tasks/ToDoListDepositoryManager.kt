@@ -1,27 +1,22 @@
 package com.example.megaultralist.tasks
 
+import android.annotation.SuppressLint
+import android.bluetooth.BluetoothAdapter
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
-import com.example.megaultralist.MainActivity
 import com.example.megaultralist.ToDoListHolder
-import com.example.megaultralist.databinding.ActivityMainBinding
 import com.example.megaultralist.tasks.data.Task
 import com.example.megaultralist.tasks.data.toDoList
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileOutputStream
-import java.io.PrintWriter
-import java.time.LocalDateTime
-import kotlin.random.Random
+import com.beust.klaxon.Klaxon
+import java.io.StringReader
 
 class ToDoListDepositoryManager {
 
@@ -31,19 +26,61 @@ class ToDoListDepositoryManager {
     var onTasks:((List<Task>) -> Unit)? = null
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
     var onChanges:((List<toDoList>) -> Unit)? = null
-    val gson = Gson()
+    @SuppressLint("HardwareIds")
+    val unique_id: String = BluetoothAdapter.getDefaultAdapter().address.toString()
 
     val TAG:String = "MegaUltraList:ToDoListDepositoryManager"
 
-    fun loadFirebase(){
+    fun loadFirebase() {
 
-        var userListRef = Firebase.storage.reference.child("userlists/userLists.json")
+        val userListRef = Firebase.storage.reference.child("userlists/${unique_id}-Lists.json")
         val ONE_MEGABYTE: Long = 1024 * 1024
+
         userListRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
-            load()
-            updateAllLists()
+
+
+
+            val json = """
+                [
+                    {
+                    "listName": "Funker dette?",
+                    "tasks": [ 
+                    {"taskName": "Du dette funker", "completed": false},
+                    {"taskName": "Funker som bare det", "completed": true}
+                    ]},
+                    {
+                    "listName": "Du det funker",
+                    "tasks": [
+                    {"taskName": "Ja det gjør det", "completed": true},
+                    {"taskName": "eller?", "completed": false}
+                    ]}
+                ]
+            """
+
+            val userLists = String(it)
+
+            val result = Klaxon().parseArray<toDoList>(userLists)
+
+            listCollection = mutableListOf()
+
+            if (result != null){
+
+                result.forEach{
+
+                    listCollection.add(it)
+                    updateAllLists()
+
+                }
+            } else {
+
+                load()
+
+            }
+
         }.addOnFailureListener{
+
             load()
+
         }
 
     }
@@ -161,7 +198,7 @@ class ToDoListDepositoryManager {
     fun saveData(filePath: File?){
         updateAllLists()
         val path = filePath
-        val fileName = "userLists.json"
+        val fileName = "${unique_id}-Lists.json"
         val file = File(path, fileName)
 
         if(file.exists() && file.isFile){
@@ -171,20 +208,20 @@ class ToDoListDepositoryManager {
 
         if (path != null){
 
-            var content: String = "{\n"
+            var content: String = "[\n"
             listCollection.forEach { toDoList ->
 
-                content = content + "    \"todolist\":   {\n" + "\"listname\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":  [\n"
+                content = content + "{\n" + "\"listName\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":[\n"
 
                 toDoList.tasks.forEach {
 
-                    content = content + "    {\"taskName\": \"${it.taskName}\"," + " \"completed\": ${it.completed}},\n"
+                    content = content + "{\"taskName\": \"${it.taskName}\"," + "\"completed\": ${it.completed}},\n"
 
                 }
-                content = "$content    ]\n    },\n"
+                content = "$content]\n},\n"
             }
 
-            content = "$content}"
+            content = "$content]"
 
             FileOutputStream(file, true).bufferedWriter().use { writer ->
                 writer.write(content)
