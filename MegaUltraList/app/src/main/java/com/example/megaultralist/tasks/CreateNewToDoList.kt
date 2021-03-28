@@ -31,6 +31,7 @@ class CreateNewToDoList : AppCompatActivity() {
 
         var listName = binding.newListName.text.toString()
 
+        // Check to see if the user has entered a name for the list.
         if(listName.isNotEmpty()){
 
             val mutableList = mutableListOf<Task>()

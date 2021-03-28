@@ -28,8 +28,9 @@ class CreateNewTask : AppCompatActivity() {
 
     private fun createNewTask() {
 
-        var taskName = binding.newTaskName.text.toString()
+        val taskName = binding.newTaskName.text.toString()
 
+        // Check to see if the user has entered a name for the task
         if (taskName.isNotEmpty()){
 
             val task = Task(taskName, false)
