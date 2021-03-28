@@ -2,10 +2,13 @@ package com.example.megaultralist.tasks
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
+import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import com.example.megaultralist.ToDoListHolder
 import com.example.megaultralist.tasks.data.Task
@@ -21,13 +24,13 @@ import java.io.StringReader
 class ToDoListDepositoryManager {
 
     private lateinit var listCollection:MutableList<toDoList>
+    private lateinit var unique_id: String
 
     var onToDoLists:((List<toDoList>) -> Unit)? = null
     var onTasks:((List<Task>) -> Unit)? = null
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
     var onChanges:((List<toDoList>) -> Unit)? = null
     @SuppressLint("HardwareIds")
-    val unique_id: String = BluetoothAdapter.getDefaultAdapter().address.toString()
 
     val TAG:String = "MegaUltraList:ToDoListDepositoryManager"
 
@@ -248,6 +251,10 @@ class ToDoListDepositoryManager {
 
     fun updateChanges(){
         onChanges?.invoke(listCollection)
+    }
+
+    fun setUniqueID(deviceID: String){
+        unique_id = deviceID
     }
 
     companion object {
