@@ -1,12 +1,16 @@
 package com.example.megaultralist
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.megaultralist.databinding.ActivityMainBinding
 import com.example.megaultralist.databinding.ActivityToDoListDetailsBinding
@@ -37,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG:String = "Mega Ultra List:Mainactivity"
 
+    @SuppressLint("HardwareIds")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +49,10 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         signInAnonymously()
+
+        val secureID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+
+        ToDoListDepositoryManager.instance.setUniqueID(secureID)
 
         setContentView(binding.root)
 

@@ -2,12 +2,14 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.megaultralist">
+    package="com.example.megaultralist"
+    tools:ignore="ExtraText">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -16,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MegaUltraList">
-        <activity android:name=".tasks.CreateNewTask"></activity>
+        <activity android:name=".tasks.CreateNewTask" />
         <activity android:name=".tasks.CreateNewToDoList" />
         <activity android:name=".tasks.toDoListDetailsActivity" />
         <activity
