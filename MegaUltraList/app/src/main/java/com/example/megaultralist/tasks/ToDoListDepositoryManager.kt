@@ -36,6 +36,7 @@ class ToDoListDepositoryManager {
 
     fun loadFirebase() {
 
+        // Download user file from Firebase
         val userListRef = Firebase.storage.reference.child("userlists/${unique_id}-Lists.json")
         val ONE_MEGABYTE: Long = 1024 * 1024
 
@@ -62,26 +63,30 @@ class ToDoListDepositoryManager {
 
             val userLists = String(it)
 
+            // Convert the Json file into an object we can use in Kotlin
             val result = Klaxon().parseArray<toDoList>(userLists)
 
+            // Initialize the listCollection
             listCollection = mutableListOf()
 
             if (result != null){
 
                 result.forEach{
 
+                    // Add previous lists to the collection
                     listCollection.add(it)
                     updateAllLists()
 
                 }
             } else {
-
+                // If it is a first time user or something went wrong, load premade lists.
                 load()
 
             }
 
         }.addOnFailureListener{
 
+            // If file didnt download initialize premade lists.
             load()
 
         }
@@ -89,6 +94,8 @@ class ToDoListDepositoryManager {
     }
 
     fun load(){
+
+        // A set of premade lists in case the user is a first time user
         listCollection = mutableListOf(
 
          toDoList(listName = "Shoppinglist", tasks = mutableListOf(
@@ -204,6 +211,9 @@ class ToDoListDepositoryManager {
         val fileName = "${unique_id}-Lists.json"
         val file = File(path, fileName)
 
+        // Check if the user already has a file, if he does delete it and create a new one
+        // I didnt find any other way to clear out the data already in the file on firebase than
+        // this one.
         if(file.exists() && file.isFile){
             file.delete()
         }
@@ -211,6 +221,7 @@ class ToDoListDepositoryManager {
 
         if (path != null){
 
+            // Convert our listCollection to Json... Manually...
             var content: String = "[\n"
             listCollection.forEach { toDoList ->
 
@@ -229,11 +240,14 @@ class ToDoListDepositoryManager {
             FileOutputStream(file, true).bufferedWriter().use { writer ->
                 writer.write(content)
             }
+
+            // Call the upload function
             upload(file.toUri())
         }
 
     }
 
+    // Function to upload the user data to Firebase Storage.
     fun upload(file: Uri){
 
         Log.d(TAG, "Upload file $file")
@@ -253,10 +267,13 @@ class ToDoListDepositoryManager {
         onChanges?.invoke(listCollection)
     }
 
+    // Set a unique id for each user. Used in the filename for userdata, so that people only access
+    // their own lists.
     fun setUniqueID(deviceID: String){
         unique_id = deviceID
     }
 
+    // Make sure there is only one instance of the DepositoryManager.
     companion object {
 
         val instance = ToDoListDepositoryManager()

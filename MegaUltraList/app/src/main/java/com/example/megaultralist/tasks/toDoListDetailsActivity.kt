@@ -23,8 +23,10 @@ class toDoListDetailsActivity : AppCompatActivity() {
         binding = ActivityToDoListDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Collect toDoList from the holder
         val receivedToDoList = ToDoListHolder.PickedToDoList
 
+        // null check on the list, this will never be null, but in case something happens
         if (receivedToDoList != null) {
 
             todolist = receivedToDoList
@@ -40,8 +42,12 @@ class toDoListDetailsActivity : AppCompatActivity() {
 
         }
 
+        // Set bindings for the different elements of the layout file
         binding.toDoListName.text = todolist.listName
         binding.toDoListTasks.layoutManager = LinearLayoutManager(this)
+
+        // Hook the Recyclerview up to the TaskCollectionAdapter. Send the tasks of the picked
+        // list to the adapter.
         binding.toDoListTasks.adapter = TaskCollectionAdapter(todolist.tasks)
 
         binding.newTaskButton.setOnClickListener{
@@ -50,8 +56,11 @@ class toDoListDetailsActivity : AppCompatActivity() {
 
         }
 
+        // Set the progress of a list with a function in the DepositoryManager.
         binding.toDoListProgressBar.progress = ToDoListDepositoryManager.instance.calculateProgressBar()
 
+        // When a task is changed, notify the TaskCollectionAdapter to update its dataset and
+        // recalculate the progressbar.
         ToDoListDepositoryManager.instance.onTasks = {
             (binding.toDoListTasks.adapter as TaskCollectionAdapter).updateTasks(it)
             binding.toDoListProgressBar.progress = ToDoListDepositoryManager.instance.calculateProgressBar()

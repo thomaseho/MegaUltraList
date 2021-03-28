@@ -13,18 +13,22 @@ class toDoListCollectionAdapter(private var todolists:List<toDoList>, private va
 
     class ViewHolder(val binding:ListLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(toDoList: toDoList, onToDoListClicked: (toDoList) -> Unit) {
+
             binding.toDoListName.text = toDoList.listName
 
+            // If a listcard is clicked, send user to a detailed view of that list.
             binding.card.setOnClickListener {
                 onToDoListClicked(toDoList)
             }
 
+            // If the listcard delete button is clicked, delete that list.
             binding.deleteListButton.setOnClickListener {
 
                 ToDoListDepositoryManager.instance.removeToDoList(toDoList)
 
             }
 
+            // Set the progressbar of each list.
             binding.toDoListProgressBar.progress = calculateProgress(toDoList.tasks)
         }
 
