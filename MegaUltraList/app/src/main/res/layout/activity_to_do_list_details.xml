@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
     tools:context=".tasks.toDoListDetailsActivity">
 
 
@@ -18,14 +19,15 @@
             android:layout_width="match_parent"
             android:layout_height="115dp"
             android:layout_gravity="top"
-            android:foregroundTint="@color/cardview_dark_background">
+            android:background="@color/cardview_dark_background">
 
             <TextView
                 android:id="@+id/toDoListName"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:textColor="@color/purple_200"
+                android:typeface="serif"
+                android:textColor="@color/titleColor"
                 android:textSize="20sp"
                 tools:text="List Name" />
 
@@ -37,7 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:progressBackgroundTint="@color/teal_200"
-                android:progressTint="@color/purple_200"
+                android:progressTint="@color/titleColor"
                 android:scaleY="3" />
 
         </FrameLayout>
@@ -68,12 +70,15 @@
         android:orientation="vertical"
         android:gravity="bottom">
 
-        <ImageButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/newTaskButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:backgroundTint="@color/titleColor"
+            android:clickable="true"
+            android:focusable="true"
             app:srcCompat="@drawable/ic_list_add"
-            android:contentDescription="@string/add_a_new_task" />
+            android:contentDescription="@string/button_for_adding_tasks" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

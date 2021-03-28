@@ -19,14 +19,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/task_finished"
-            android:layout_gravity="left"/>
+            android:textColor="@color/titleColor"
+            android:textColorHighlight="@color/titleColor"
+            android:layout_gravity="start"/>
 
         <TextView
             android:id="@+id/taskText"
-            android:layout_width="142dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/titleColor"
+            android:typeface="serif"
             android:textSize="20sp"
             tools:text="Task" />
 

@@ -5,4 +5,11 @@
     <string name="add_a_new_task">Add a new task</string>
     <string name="enter_a_name_for_your_list">Enter a name for your list</string>
     <string name="enter_a_name_for_your_task">Enter a name for your task</string>
+    <string name="mainTitle">MEGA ULTRA LIST</string>
+    <string name="slogan">when even the list is extreme</string>
+    <string name="button_for_adding_lists">Button for adding lists</string>
+    <string name="button_for_adding_tasks">button for adding tasks</string>
+    <string name="add_task">Add task</string>
+    <string name="add_list">add list</string>
+    <string name="enter_a_new_task">Enter a new task</string>
 </resources>
