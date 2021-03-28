@@ -19,10 +19,12 @@
 
         <TextView
             android:id="@+id/toDoListName"
-            android:layout_width="178dp"
-            android:layout_height="65dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
             android:layout_gravity="center"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/titleColor"
+            android:typeface="serif"
             android:textSize="20sp"
             tools:text="List Name" />
 
@@ -34,8 +36,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:scaleY="3"
-            android:progressTint="@color/purple_200"
-            android:progressBackgroundTint="@color/white"/>
+            android:progressTint="@color/titleColor"
+            android:progressBackgroundTint="@color/teal_200"/>
 
         <ImageButton
             android:id="@+id/deleteListButton"
