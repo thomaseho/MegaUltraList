@@ -6,7 +6,7 @@ Hvis man vil legge til nye lister eller oppgaver har man en knapp for det lett t
 Man kan enkelt slette en liste eller en oppgave ved å trykke på den lille søppelbøtten på liste elementet.
 
 Appen lagrer listene på Firebase når de blir endret, når du åpner appen laster den ned listene du hadde fra før av som en Json fil
-og bruker datene i filen.
+og bruker dataene i filen.
 
   
 APK Download link: 
