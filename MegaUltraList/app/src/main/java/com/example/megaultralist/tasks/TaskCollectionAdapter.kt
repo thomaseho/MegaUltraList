@@ -22,16 +22,33 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
         @RequiresApi(Build.VERSION_CODES.R)
         fun bind(Task: Task) {
 
+            val thisList = ToDoListHolder.PickedToDoList
+
             binding.taskText.text = Task.taskName
             binding.taskCheckBox.isChecked = Task.completed
 
             binding.deleteTaskButton.setOnClickListener {
 
-                if (binding.taskCheckBox.isChecked){
-                    binding.taskCheckBox.isChecked = false
+                val newTasks = thisList?.tasks
+
+                thisList?.tasks?.forEach {
+
+                    if (Task.completed) {
+                        Task.completed = false
+                    }
                 }
 
+                newTasks?.remove(Task)
+
                 ToDoListDepositoryManager.instance.removeTaskFromList(ToDoListHolder.PickedToDoList, Task)
+
+                if (newTasks != null) {
+                    thisList.tasks = newTasks
+                }
+
+                if (thisList != null) {
+                    ToDoListDepositoryManager.instance.updateToDoList(thisList)
+                }
 
             }
 
