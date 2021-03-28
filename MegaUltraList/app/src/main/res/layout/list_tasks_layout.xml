@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="115dp"
             android:layout_gravity="top"
-            android:foregroundTint="@color/cardview_dark_background">
+            android:backgroundTint="@color/cardview_dark_background">
 
             <TextView
                 android:id="@+id/toDoListName"
@@ -44,7 +44,7 @@
         <ScrollView
             android:id="@+id/listDetailsScrollView"
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/toDoListTasks"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical" />
             </RelativeLayout>
         </ScrollView>
