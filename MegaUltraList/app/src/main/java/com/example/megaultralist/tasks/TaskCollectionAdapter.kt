@@ -27,15 +27,17 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
             binding.deleteTaskButton.setOnClickListener {
 
+                if (binding.taskCheckBox.isChecked){
+                    binding.taskCheckBox.isChecked = false
+                }
+
                 ToDoListDepositoryManager.instance.removeTaskFromList(ToDoListHolder.PickedToDoList, Task)
 
             }
 
-            binding.taskCheckBox.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
+            binding.taskCheckBox.setOnCheckedChangeListener { _: CompoundButton, b: Boolean ->
 
-                val status = binding.taskCheckBox.isChecked
-
-                ToDoListDepositoryManager.instance.updateTaskCompletion(Task, status)
+                ToDoListDepositoryManager.instance.updateTaskCompletion(Task, b)
 
             }
         }
@@ -49,6 +51,7 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
         val task = tasks[position]
         holder.bind(task)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,9 +59,9 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
     }
 
     public fun updateTasks(newTask: List<Task>){
+
         tasks = newTask
         notifyDataSetChanged()
-
     }
 
 }

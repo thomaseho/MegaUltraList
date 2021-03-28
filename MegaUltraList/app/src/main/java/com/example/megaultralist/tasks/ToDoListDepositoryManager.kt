@@ -112,8 +112,8 @@ class ToDoListDepositoryManager {
     fun updateTaskCompletion(task: Task, status: Boolean){
 
         task.completed = status
-        updateAllLists()
         ToDoListHolder.PickedToDoList?.let { updateToDoListTasks(it.tasks) }
+        updateAllLists()
         updateChanges()
 
     }

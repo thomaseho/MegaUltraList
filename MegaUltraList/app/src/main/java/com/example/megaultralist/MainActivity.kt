@@ -9,12 +9,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.megaultralist.databinding.ActivityMainBinding
-import com.example.megaultralist.tasks.CreateNewToDoList
-import com.example.megaultralist.tasks.ToDoListDepositoryManager
+import com.example.megaultralist.databinding.ActivityToDoListDetailsBinding
+import com.example.megaultralist.tasks.*
 import com.example.megaultralist.tasks.data.Task
 import com.example.megaultralist.tasks.data.toDoList
-import com.example.megaultralist.tasks.toDoListCollectionAdapter
-import com.example.megaultralist.tasks.toDoListDetailsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -60,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         ToDoListDepositoryManager.instance.onToDoLists = {
             (binding.toDoListListing.adapter as toDoListCollectionAdapter).updateToDoListCollection(it)
         }
+
 
         ToDoListDepositoryManager.instance.onChanges = {
             saveLists()
