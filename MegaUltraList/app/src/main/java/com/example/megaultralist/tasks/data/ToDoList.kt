@@ -6,4 +6,3 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class toDoList(val listName:String, var tasks:MutableList<Task>):Parcelable
-// A toDoList is a collection of Tasks, that are to be completed.
