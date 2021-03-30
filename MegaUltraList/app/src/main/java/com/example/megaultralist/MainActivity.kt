@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         FirebaseManager.instance.loadFirebase()
-
     }
 
     private fun signInAnonymously(){

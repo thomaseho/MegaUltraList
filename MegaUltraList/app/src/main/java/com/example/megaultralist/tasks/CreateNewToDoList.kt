@@ -34,7 +34,8 @@ class CreateNewToDoList : AppCompatActivity() {
         if(listName.isNotEmpty()){
 
             val mutableList = mutableListOf<Task>()
-            val todolist = toDoList(listName, mutableList)
+            val noProgress: Int = 0
+            val todolist = toDoList(listName, mutableList, noProgress)
 
             ToDoListDepositoryManager.instance.addToDoList(todolist)
             ToDoListDepositoryManager.instance.updateToDoList(todolist)
