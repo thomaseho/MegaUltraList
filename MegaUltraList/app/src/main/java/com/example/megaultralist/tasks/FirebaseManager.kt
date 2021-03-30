@@ -78,7 +78,8 @@ class FirebaseManager {
                     content = content + "{\"taskName\": \"${it.taskName}\"," + "\"completed\": ${it.completed}},\n"
 
                 }
-                content = "$content]\n},\n"
+                content = "$content],\n"
+                content = content + "\"progress\": ${toDoList.progress}},"
             }
 
             content = "$content]"

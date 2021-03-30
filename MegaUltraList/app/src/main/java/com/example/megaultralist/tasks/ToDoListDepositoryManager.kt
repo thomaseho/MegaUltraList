@@ -33,25 +33,27 @@ class ToDoListDepositoryManager {
 
     fun load(){
 
+        val noProgress: Int = 0
+
         listCollection = mutableListOf(
 
          toDoList(listName = "Shoppinglist", tasks = mutableListOf(
             Task("Bread", false),
             Task("Eggs", false),
             Task("Milk", false)
-        )),
+        ), noProgress),
 
         toDoList(listName = "Chores", tasks = mutableListOf(
             Task("Make dinner", false),
             Task("Take out the trash", false),
             Task("Clean the toilet", false)
-        )),
+        ), noProgress),
 
         toDoList(listName = "Watchlist", tasks = mutableListOf(
             Task("LOTR", false),
             Task("Harry Potter", false),
             Task("The world burn", false)
-        ))
+        ), noProgress)
         )
 
         updateAllLists()
@@ -117,7 +119,7 @@ class ToDoListDepositoryManager {
         onTasks?.invoke(tasks)
     }
 
-    fun calculateProgressBar(): Int {
+    fun calculateProgressBar() {
 
         val size: Float? = ToDoListHolder.PickedToDoList?.tasks?.size?.toFloat()
         var completedTasks: Float = 0.0F
@@ -136,9 +138,9 @@ class ToDoListDepositoryManager {
             }
             progress = (completedTasks / size!! * 100).toInt()
 
-
+            ToDoListHolder.PickedToDoList!!.progress = progress
         }
-        return progress
+
     }
 
     fun updateChanges(){

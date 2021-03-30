@@ -36,6 +36,7 @@ class toDoListDetailsActivity : AppCompatActivity() {
         }
 
         binding.toDoListName.text = todolist.listName
+        binding.toDoListProgressBar.progress = todolist.progress
         binding.toDoListTasks.layoutManager = LinearLayoutManager(this)
 
         binding.toDoListTasks.adapter = TaskCollectionAdapter(todolist.tasks)
@@ -46,11 +47,11 @@ class toDoListDetailsActivity : AppCompatActivity() {
 
         }
 
-        binding.toDoListProgressBar.progress = ToDoListDepositoryManager.instance.calculateProgressBar()
 
         ToDoListDepositoryManager.instance.onTasks = {
             (binding.toDoListTasks.adapter as TaskCollectionAdapter).updateTasks(it)
-            binding.toDoListProgressBar.progress = ToDoListDepositoryManager.instance.calculateProgressBar()
+            ToDoListDepositoryManager.instance.calculateProgressBar()
+            binding.toDoListProgressBar.progress = todolist.progress
         }
     }
 
