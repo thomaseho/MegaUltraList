@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.megaultralist.EXTRA_TODOLIST_INFO
 import com.example.megaultralist.ToDoListHolder
 import com.example.megaultralist.databinding.ActivityToDoListDetailsBinding
 import com.example.megaultralist.tasks.data.Task
@@ -33,10 +32,6 @@ class toDoListDetailsActivity : AppCompatActivity() {
             Log.i("ToDoList Details view", receivedToDoList.toString())
 
         } else {
-
-            setResult(RESULT_CANCELED, Intent(EXTRA_TODOLIST_INFO).apply {
-
-            })
 
             finish()
 
@@ -70,7 +65,7 @@ class toDoListDetailsActivity : AppCompatActivity() {
 
     private fun createNewTaskButton() {
 
-        var intent = Intent(this, CreateNewTask::class.java)
+        val intent = Intent(this, CreateNewTask::class.java)
 
         startActivity(intent)
 
