@@ -24,7 +24,6 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
             binding.taskText.text = Task.taskName
 
-            // Make sure the checkbox is checked if the user has completed that task.
             binding.taskCheckBox.isChecked = Task.completed
 
             binding.deleteTaskButton.setOnClickListener {
@@ -33,8 +32,6 @@ class TaskCollectionAdapter (private var tasks:List<Task>) : RecyclerView.Adapte
 
             }
 
-            // setOnCheckedChangeListener makes the app crash. This checks for clicks on the checkbox
-            // Does changes to task completion and calls for updates.
             binding.taskCheckBox.setOnClickListener {
 
                 val status = !Task.completed
