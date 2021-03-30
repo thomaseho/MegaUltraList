@@ -11,4 +11,4 @@ og bruker dataene i filen.
   
 APK Download link: 
 
-https://appdistribution.firebase.dev/i/c164cff8599006ad
+https://appdistribution.firebase.dev/i/7cba0329b971a6aa
