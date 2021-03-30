@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         signInAnonymously()
 
         val secureID = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
-        ToDoListDepositoryManager.instance.setUniqueID(secureID)
+        FirebaseManager.instance.setUniqueID(secureID)
 
         setContentView(binding.root)
 
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             saveLists()
         }
 
-        ToDoListDepositoryManager.instance.loadFirebase()
+        FirebaseManager.instance.loadFirebase()
 
     }
 
@@ -103,6 +103,6 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveLists(){
         val path = this.getExternalFilesDir(null)
-        ToDoListDepositoryManager.instance.saveData(path)
+        FirebaseManager.instance.saveData(path)
     }
 }

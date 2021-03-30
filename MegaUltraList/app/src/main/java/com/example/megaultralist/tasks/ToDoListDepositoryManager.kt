@@ -23,51 +23,13 @@ import java.io.StringReader
 
 class ToDoListDepositoryManager {
 
-    private lateinit var listCollection:MutableList<toDoList>
+    lateinit var listCollection:MutableList<toDoList>
     private lateinit var unique_id: String
 
     var onToDoLists:((List<toDoList>) -> Unit)? = null
     var onTasks:((List<Task>) -> Unit)? = null
     var onTodoListUpdate:((toDoList:toDoList) -> Unit)? = null
     var onChanges:((List<toDoList>) -> Unit)? = null
-    @SuppressLint("HardwareIds")
-
-    val TAG:String = "MegaUltraList:ToDoListDepositoryManager"
-
-    fun loadFirebase() {
-
-        val userListRef = Firebase.storage.reference.child("userlists/${unique_id}-Lists.json")
-        val ONE_MEGABYTE: Long = 1024 * 1024
-
-        userListRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
-
-            val userLists = String(it)
-
-            val result = Klaxon().parseArray<toDoList>(userLists)
-
-            listCollection = mutableListOf()
-
-            if (result != null){
-
-                result.forEach{
-
-                    listCollection.add(it)
-                    updateAllLists()
-
-                }
-            } else {
-
-                load()
-
-            }
-
-        }.addOnFailureListener{
-
-            load()
-
-        }
-
-    }
 
     fun load(){
 
@@ -179,65 +141,8 @@ class ToDoListDepositoryManager {
         return progress
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun saveData(filePath: File?){
-        updateAllLists()
-        val path = filePath
-        val fileName = "${unique_id}-Lists.json"
-        val file = File(path, fileName)
-
-        if(file.exists() && file.isFile){
-            file.delete()
-        }
-        file.createNewFile()
-
-        if (path != null){
-
-            var content: String = "[\n"
-            listCollection.forEach { toDoList ->
-
-                content = content + "{\n" + "\"listName\": " + "\"${toDoList.listName}\",\n" + "\"tasks\":[\n"
-
-                toDoList.tasks.forEach {
-
-                    content = content + "{\"taskName\": \"${it.taskName}\"," + "\"completed\": ${it.completed}},\n"
-
-                }
-                content = "$content]\n},\n"
-            }
-
-            content = "$content]"
-
-            FileOutputStream(file, true).bufferedWriter().use { writer ->
-                writer.write(content)
-            }
-
-            upload(file.toUri())
-        }
-
-    }
-
-    fun upload(file: Uri){
-
-        Log.d(TAG, "Upload file $file")
-
-        val ref = FirebaseStorage.getInstance().reference.child("userlists/${file.lastPathSegment}")
-        val uploadTask = ref.putFile(file)
-
-        uploadTask.addOnSuccessListener {
-            Log.d(TAG, "Saved changes ${it.toString()}")
-        }.addOnFailureListener{
-            Log.e(TAG, "Error saving changes to Firebase", it)
-        }
-
-    }
-
     fun updateChanges(){
         onChanges?.invoke(listCollection)
-    }
-
-    fun setUniqueID(deviceID: String){
-        unique_id = deviceID
     }
 
     companion object {
