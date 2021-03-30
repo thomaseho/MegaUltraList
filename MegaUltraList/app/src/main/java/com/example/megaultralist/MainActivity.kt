@@ -23,10 +23,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.list_layout.view.*
 import java.io.File
 
-
-const val EXTRA_TODOLIST_INFO: String = "com.example.megaultralist.tasks.info"
-const val REQUEST_TODOLIST_DETAILS:Int = 564567
-
 class ToDoListHolder {
     // Holder for picked lists, makes it easier to access said list in other areas of the codebase
     companion object {
@@ -108,14 +104,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, toDoListDetailsActivity::class.java)
 
         startActivity(intent)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_TODOLIST_DETAILS){
-
-        }
     }
 
     // Couldnt figure out another way to get the path to SD_Card, created it here and sent it

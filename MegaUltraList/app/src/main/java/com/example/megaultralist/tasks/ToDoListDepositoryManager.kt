@@ -42,25 +42,6 @@ class ToDoListDepositoryManager {
 
         userListRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
 
-
-
-            /*val json = """
-                [
-                    {
-                    "listName": "Funker dette?",
-                    "tasks": [ 
-                    {"taskName": "Du dette funker", "completed": false},
-                    {"taskName": "Funker som bare det", "completed": true}
-                    ]},
-                    {
-                    "listName": "Du det funker",
-                    "tasks": [
-                    {"taskName": "Ja det gjør det", "completed": true},
-                    {"taskName": "eller?", "completed": false}
-                    ]}
-                ]
-            """*/
-
             val userLists = String(it)
 
             // Convert the Json file into an object we can use in Kotlin
